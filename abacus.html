@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивно сметало - ДЕЦА СЪС СОП</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABM0lEQVRYR+2WsUoDQRCG/7mTgI1gF0hpYWFja5UCgq2FrY2VD2Bpa2vvE1j7ABZWgoWghSDY2QiChaTRQu9CciebHLnkCMp6JLnKZT/Y3Zn55t+ZZZdQUKCgXFQAfiV4YbH9OPvQxlqNKbkA+1G8bQh7tQK0Gf0QOCTChQBnA0mPZoFVzwVjPaLeEHcgO1Ur4xY/1+0GF9Ek9F3g0ghPc9m3vZqIPNZgYDWr+pQToO/tDOAO8TkQXKkqzw3Q624bA7cTgGuAl7MA6Jdwhzm9FZI3c3KpQsxfgRJiFoCKSqokpPKXZWCuFfwXUwf5dWdJ0qS6nfdOMCr+iUJaAF0ApwZwUFQEzl/E7+IjQ5ilojLQBLBMDhuTcKCq5KwQ/0JpAcyK13UIVfOZK1LW2Jk68AvLlrwhhgr3ygAAAABJRU5ErkJggg==">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABM0lEQVRYR+2WsUoDQRCG/7mTgI1gF0hpYWFja5UCgq2FrY2VD2Bpa2vvE1j7ABZWgoWghSDY2QiChaTRQu9CciebHLnkCMp6JLnKZT/Y3Zn55t+ZZZdQUKCgXFQAfiV4YbH9OPvQxlqNKbkA+1G8bQh7tQK0Gf0QOCTChQBnA0mPZoFVzwVjPaLeEHcgO1Ur4xY/1+0GF9Ek9F3g0ghPc9m3vZqIPNZgYDWr+pQToO/tDOAO8TkQXKkqzw3Q664bA7cTgGuAl7MA6Jdwhzm9FZI3c3KpQsxfgRJiFoCKSqokpPKXZWCuFfwXUwf5dWdJ0qS6nfdOMCr+iUJaAF0ApwZwUFQEzl/E7+IjQ5ilojLQBLBMDhuTcKCq5KwQ/0JpAcyK13UIVfOZK1LW2Jk68AvLlrwhhgr3ygAAAABJRU5ErkJggg==">
+    <meta name="theme-color" content="#6a9ca4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/opendyslexic" />
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://kit.fontawesome.com/b165c17852.js" crossorigin="anonymous"></script>
+    <style>
+        .game-container {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        .game-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .game-info {
+            margin-left: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.8em;
+            color: #4a6670;
+            margin-bottom: 10px;
+        }
+        
+        .game-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .game-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #6a9ca4;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .game-tag {
+            background-color: #f2d0a7;
+            color: #4a6670;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .game-content {
+            margin-top: 30px;
+        }
+        
+        .game-instructions {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .game-instructions h3 {
+            color: #4a6670;
+            margin-bottom: 15px;
+        }
+        
+        .game-instructions ol {
+            margin-left: 20px;
+        }
+        
+        .game-instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .game-area {
+            background-color: #f2f8f9;
+            padding: 30px;
+            border-radius: 10px;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+            min-height: 500px;
+        }
+        
+        .abacus-game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .question-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .question-prompt {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #4a6670;
+        }
+        
+        .abacus-frame {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background-color: #d1b59f; 
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .rod {
+            width: 90%;
+            height: 8px;
+            background-color: #8b4513; 
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .beads-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: absolute;
+            width: 100%;
+            top: -15px; 
+        }
+        
+        .bead {
+            width: 30px;
+            height: 30px;
+            background-color: #6a9ca4;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .answers-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .answer-option {
+            background-color: #fff;
+            border: 2px solid #6a9ca4;
+            color: #4a6670;
+            font-size: 1.2em;
+            font-weight: 600;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .answer-option:hover {
+            background-color: #e7f4f6;
+            transform: scale(1.05);
+        }
+        
+        .answer-option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        
+        .answer-option.incorrect {
+            background-color: #ffcdd2;
+            border-color: #ef5350;
+            color: #c62828;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        
+        .feedback.positive {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+            opacity: 1;
+        }
+        
+        .feedback.negative {
+            background-color: #ffcdd2;
+            color: #c62828;
+            opacity: 1;
+        }
+        
+        .next-button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #6a9ca4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: none;
+        }
+        
+        .next-button:hover {
+            background-color: #4a6670;
+            transform: translateY(-2px);
+        }
+        
+        .next-button.visible {
+            display: block;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #6a9ca4;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .score-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #f2d0a7;
+            color: #4a6670;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .game-complete {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .game-complete h3 {
+            font-size: 1.8em;
+            color: #4a6670;
+            margin-bottom: 15px;
+        }
+        
+        .game-complete p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            color: #6a9ca4;
+            margin: 20px 0;
+        }
+        
+        .restart-button {
+            padding: 12px 30px;
+            background-color: #f2d0a7;
+            color: #4a6670;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .restart-button:hover {
+            background-color: #e9c28e;
+            transform: translateY(-2px);
+        }
+
+        .font-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #6a9ca4;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .font-switcher:hover {
+            transform: scale(1.1);
+            background-color: #4a6670;
+        }
+
+        .font-switcher i {
+            font-size: 1.2em;
+        }
+
+        .dyslexic-font {
+            font-family: 'OpenDyslexic', sans-serif !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-title-wrapper">
+                <div class="logo-icon-container">
+                    <i class="fas fa-children"></i>
+                </div>
+                <h1>ДЕЦА СЪС СОП</h1>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="nav-container">
+                <ul class="nav-links main-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Начало</a></li>
+                    <li><a href="../parents.html"><i class="fas fa-users"></i> За родители</a></li>
+                    <li><a href="../educational-games.html" class="active"><i class="fas fa-gamepad"></i> Образователни игри</a></li>
+                    <li><a href="../blog.html"><i class="fas fa-blog"></i> Блог</a></li>
+                    <li><a href="../contacts.html"><i class="fas fa-envelope"></i> Контакти</a></li>
+                </ul>
+               
+            </div>
+            <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="page-banner">
+            <h1>Интерактивно сметало</h1>
+            <p>Практикувайте броене и основни аритметични операции с виртуално сметало</p>
+        </section>
+        
+        <div class="navigation-buttons">
+            <a href="../games/math-games.html" class="back-button"><i class="fas fa-arrow-left"></i> Обратно към математически игри</a>
+        </div>
+        
+        <section class="parents-section">
+            <div class="game-container">
+                <div class="game-header">
+                    <img src="../images/is.png" alt="Интерактивно сметало" width="150" height="150" style="border-radius: 10px;">
+                    
+                    <div class="game-info">
+                        <h2 class="game-title">Интерактивно сметало</h2>
+                        <div class="game-meta">
+                            <div class="game-meta-item">
+                                <i class="fas fa-signal"></i>
+                                <span>Ниво: Лесно</span>
+                            </div>
+                            <div class="game-meta-item">
+                                <i class="fas fa-child"></i>
+                                <span>Възраст: 4-7 години</span>
+                            </div>
+                        </div>
+                        <div class="game-tags">
+                            <span class="game-tag">Броене</span>
+                            <span class="game-tag">Събиране</span>
+                            <span class="game-tag">Изваждане</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-content">
+                    <div class="game-instructions">
+                        <h3>Как се играе:</h3>
+                        <ol>
+                            <li>Първият ред на сметалото показва десетици, а вторият единици.</li>
+                            <li>Ще ви бъде дадена задача за броене, събиране или изваждане.</li>
+                            <li>Изберете правилния отговор.</li>
+                            <li>Опитайте се да решите колкото се може повече задачи!</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="game-area">
+                        <div class="score-container">Точки: <span id="score">0</span></div>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                        </div>
+                        
+                        <div class="abacus-game" id="game-content">
+                            <div class="question-container">
+                                <h3 class="question-prompt">Колко показва сметалото?</h3>
+                            </div>
+                            
+                            <div class="abacus-frame">
+                                <div class="rod">
+                                    <div class="beads-container" id="beads-tens">
+                                    </div>
+                                </div>
+                                <div class="rod">
+                                    <div class="beads-container" id="beads-units">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="answers-container" id="answers-container">
+                            </div>
+                            
+                            <div class="feedback" id="feedback"></div>
+                            
+                            <button class="next-button" id="next-button">Следващ въпрос</button>
+                        </div>
+                        
+                        <div class="game-complete" id="game-complete">
+                            <h3>Браво! Приключи играта!</h3>
+                            <p>Ти се справи чудесно със сметалото.</p>
+                            <div class="final-score">
+                                <span id="final-score">0</span>/10
+                            </div>
+                            <p id="final-message">Страхотно! Продължавай да практикуваш!</p>
+                            <button class="restart-button" id="restart-button">Играй отново</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="navigation-buttons">
+            <a href="../games/math-games.html" class="back-button"><i class="fas fa-arrow-left"></i> Обратно към математически игри</a>
+        </div>
+        
+        <section class="parents-section">
+            <h2 class="section-title">Защо е важно интерактивното сметало?</h2>
+            <div class="parent-info-container">
+                <div class="parent-info-item">
+                    <div class="parent-info-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Развива математически умения</h3>
+                    <p>Сметалото е отличен инструмент за визуално разбиране на числата, броенето, събирането и изваждането.</p>
+                </div>
+                <div class="parent-info-item">
+                    <div class="parent-info-icon">
+                        <i class="fas fa-hand-point-up"></i>
+                    </div>
+                    <h3>Подобрява фината моторика</h3>
+                    <p>Манипулирането на мънистата върху сметалото помага за развитието на фината моторика и координацията око-ръка.</p>
+                </div>
+                <div class="parent-info-item">
+                    <div class="parent-info-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Насърчава абстрактното мислене</h3>
+                    <p>Преминаването от конкретни обекти (мъниста) към абстрактни числови концепции подпомага развитието на мисленето.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="navigation-buttons">
+            <a href="math-games.html" class="back-button"><i class="fas fa-arrow-left"></i> Обратно към математически игри</a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Контакти</h3>
+                <p><i class="fas fa-envelope"></i> deca_sop.bg</p>
+                <p><i class="fas fa-phone"></i> +359 888 123 456</p>
+            </div>
+            <div class="footer-section">
+                <h3>Бързи връзки</h3>
+                <ul>
+                    <li><a href="../index.html">Начало</a></li>
+                    <li><a href="../parents.html">За родители</a></li>
+                    <li><a href="../educational-games.html">Образователни игри</a></li>
+                    <li><a href="../blog.html">Блог</a></li>
+                    <li><a href="../contacts.html">Контакти</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Деца със СОП.</p>
+        </div>
+    </footer>
+    
+    <button class="font-switcher" id="fontSwitcher" title="Промени шрифта">
+        <i class="fas fa-font"></i>
+    </button>
+    
+    <script>
+        const beadsTensContainer = document.getElementById('beads-tens');
+        const beadsUnitsContainer = document.getElementById('beads-units');
+        const answersContainer = document.getElementById('answers-container');
+        const feedback = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-button');
+        const scoreElement = document.getElementById('score');
+        const progressBar = document.getElementById('progress-bar');
+        const gameContent = document.getElementById('game-content');
+        const gameComplete = document.getElementById('game-complete');
+        const finalScore = document.getElementById('final-score');
+        const finalMessage = document.getElementById('final-message');
+        const restartButton = document.getElementById('restart-button');
+        const questionPrompt = document.querySelector('.question-prompt');
+
+        let currentQuestion = 0;
+        let score = 0;
+        let totalQuestions = 10;
+        let currentCorrectAnswer = 0;
+
+        function createBeads(container, count, color) {
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const bead = document.createElement('div');
+                bead.className = 'bead';
+                bead.style.backgroundColor = color;
+                container.appendChild(bead);
+            }
+        }
+
+        function generateRandomNumber(max) {
+            return Math.floor(Math.random() * (max + 1));
+        }
+
+        function generateOptions(correctAnswer) {
+            const options = [correctAnswer];
+            while (options.length < 4) {
+                const randomOption = generateRandomNumber(20); 
+                if (!options.includes(randomOption)) {
+                    options.push(randomOption);
+                }
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function createNewQuestion() {
+            beadsTensContainer.innerHTML = '';
+            beadsUnitsContainer.innerHTML = '';
+            answersContainer.innerHTML = '';
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+            nextButton.classList.remove('visible');
+
+            const tens = generateRandomNumber(1); 
+            const units = generateRandomNumber(9); 
+            currentCorrectAnswer = tens * 10 + units;
+
+            createBeads(beadsTensContainer, tens, '#f2d0a7'); 
+            createBeads(beadsUnitsContainer, units, '#6a9ca4');
+
+            questionPrompt.textContent = `Колко показва сметалото?`;
+
+            const options = generateOptions(currentCorrectAnswer);
+            options.forEach(option => {
+                const answerOption = document.createElement('div');
+                answerOption.className = 'answer-option';
+                answerOption.textContent = option;
+                answerOption.addEventListener('click', () => checkAnswer(option, answerOption));
+                answersContainer.appendChild(answerOption);
+            });
+
+            progressBar.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+        }
+
+        function checkAnswer(selectedAnswer, selectedElement) {
+            const allOptions = document.querySelectorAll('.answer-option');
+            allOptions.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+
+            if (selectedAnswer === currentCorrectAnswer) {
+                selectedElement.classList.add('correct');
+                feedback.textContent = 'Браво! Правилен отговор!';
+                feedback.className = 'feedback positive';
+                score++;
+                scoreElement.textContent = score;
+            } else {
+                selectedElement.classList.add('incorrect');
+                allOptions.forEach(option => {
+                    if (parseInt(option.textContent) === currentCorrectAnswer) {
+                        option.classList.add('correct');
+                    }
+                });
+                feedback.textContent = 'Опитай отново! Правилният отговор е ' + currentCorrectAnswer;
+                feedback.className = 'feedback negative';
+            }
+            nextButton.classList.add('visible');
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < totalQuestions) {
+                createNewQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            gameContent.style.display = 'none';
+            gameComplete.style.display = 'flex';
+            finalScore.textContent = score;
+            if (score === totalQuestions) {
+                finalMessage.textContent = 'Перфектен резултат! Ти си шампион по сметало!';
+            } else if (score >= 7) {
+                finalMessage.textContent = 'Страхотно! Ти си много добър в сметалото!';
+            } else if (score >= 5) {
+                finalMessage.textContent = 'Добра работа! Продължавай да практикуваш!';
+            } else {
+                finalMessage.textContent = 'Не се притеснявай! Практикувай повече и ще станеш по-добър!';
+            }
+        }
+
+        function restartGame() {
+            currentQuestion = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            gameContent.style.display = 'flex';
+            gameComplete.style.display = 'none';
+            createNewQuestion();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            createNewQuestion();
+            nextButton.addEventListener('click', nextQuestion);
+            restartButton.addEventListener('click', restartGame);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navContainer = document.querySelector('.nav-container');
+            
+            menuToggle.addEventListener('click', function() {
+                navContainer.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+        });
+
+        // Font switcher functionality
+        const fontSwitcher = document.getElementById('fontSwitcher');
+        const body = document.body;
+        
+        // Check for saved preference
+        const savedFont = localStorage.getItem('dyslexicFont');
+        if (savedFont === 'true') {
+            body.classList.add('dyslexic-font');
+        }
+
+        fontSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dyslexic-font');
+            // Save preference
+            localStorage.setItem('dyslexicFont', body.classList.contains('dyslexic-font'));
+        });
+    </script>
+</body>
+</html> 
